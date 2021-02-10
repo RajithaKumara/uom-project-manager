@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Project list</h1>
+
+    {% if projects is empty %}
+        <h5>No records found</h5>
+    {% else %}
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>Cost</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for project in projects %}
+            <tr>
+                <td>{{ project.id }}</td>
+                <td><a href="{{ path('project_show', { 'id': project.id }) }}">{{ project.name }}</td>
+                <td>{% if project.description %}{{ project.description }}{% endif %}</td>
+                <td>{{ project.startDate|date('Y-m-d') }}</td>
+                <td>{% if project.cost %}{{ project.cost }}{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <hr>
+    <ul>
+        <li>
+            <a href="{{ path('project_create') }}">Create a new Project</a>
+        </li>
+    </ul>
+{% endblock %}
